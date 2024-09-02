@@ -1,0 +1,19 @@
+<PLAYLISTS>
+  <NODE Name="ROOT" Type="1" KeyType="0" Entries="3">
+    <TRACK Key="183488245" Name="Fachwerk 25"/>
+    <TRACK Key="88428495" Name="Fallen Trees - Steinmuller Remix"/>
+    <TRACK Key="98019723" Name="Far Out - Original Mix"/>
+  </NODE>
+  
+  <NODE Name="twoo" Type="1" KeyType="0" Entries="3">
+    <TRACK Key="107812070" Name="Feel The Rhythm ft. Marsch - Original Mix"/>
+    <TRACK Key="174305085" Name="Feeling"/>
+    <TRACK Key="135505434" Name="Feytor - Original Mix"/>
+  </NODE>
+
+  <NODE Name="One" Type="1" KeyType="0" Entries="3">
+    <TRACK Key="93530866" Name="Fire"/>
+    <TRACK Key="175648621" Name="Flash"/>
+    <TRACK Key="35521554" Name="Flexin - Blenk Remix"/>
+  </NODE>
+</PLAYLISTS>
