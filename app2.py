@@ -3,25 +3,71 @@ import xml.etree.ElementTree as ET
 
 app = Flask(__name__)
 
-def xml_to_dict(element):
+def extract_track_info(entry):
     """
-    Recursively converts an XML element and its children to a dictionary.
+    Extracts track information including metadata and location from an ENTRY element.
     """
-    node_dict = {}
-    if element.attrib:
-        node_dict.update(element.attrib)
-    for child in element:
-        child_dict = xml_to_dict(child)
-        if child.tag not in node_dict:
-            node_dict[child.tag] = child_dict
-        else:
-            if isinstance(node_dict[child.tag], list):
-                node_dict[child.tag].append(child_dict)
-            else:
-                node_dict[child.tag] = [node_dict[child.tag], child_dict]
-    if element.text and element.text.strip():
-        node_dict['text'] = element.text.strip()
-    return node_dict
+    location = entry.find('LOCATION')
+    info = entry.find('INFO')
+    tempo = entry.find('TEMPO')
+    album = entry.find('ALBUM')
+
+    track_info = {
+        'title': entry.get('TITLE'),
+        'artist': entry.get('ARTIST'),
+        'album': album.get('TITLE') if album is not None else None,
+        'location': {
+            'directory': location.get('DIR') if location is not None else None,
+            'file': location.get('FILE') if location is not None else None,
+            'volume': location.get('VOLUME') if location is not None else None
+        },
+        'metadata': {
+            'bitrate': info.get('BITRATE') if info is not None else None,
+            'key': info.get('KEY') if info is not None else None,
+            'playcount': info.get('PLAYCOUNT') if info is not None else None,
+            'playtime': info.get('PLAYTIME') if info is not None else None,
+            'bpm': tempo.get('BPM') if tempo is not None else None,
+            'last_played': info.get('LAST_PLAYED') if info is not None else None,
+        }
+    }
+    return track_info
+
+def get_track_by_id(track_id, track_collection):
+    """
+    Finds the track in the collection by AUDIO_ID.
+    """
+    for track in track_collection:
+        if track.get('AUDIO_ID') == track_id:
+            return track
+    return None
+
+def extract_playlists(root, track_collection):
+    """
+    Extracts playlist names and their tracks from the NML structure.
+    """
+    playlists = []
+    
+    for playlist in root.findall(".//NODE[@TYPE='PLAYLIST']"):
+        playlist_info = {
+            'name': playlist.get('NAME'),
+            'tracks': []
+        }
+        for entry_ref in playlist.findall(".//ENTRY"):
+            track_id = entry_ref.get('AUDIO_ID')
+            track = get_track_by_id(track_id, track_collection)
+            if track:
+                location = track.find('LOCATION')
+                playlist_info['tracks'].append({
+                    'title': track.get('TITLE'),
+                    'artist': track.get('ARTIST'),
+                    'location': {
+                        'directory': location.get('DIR') if location is not None else None,
+                        'file': location.get('FILE') if location is not None else None,
+                        'volume': location.get('VOLUME') if location is not None else None
+                    }
+                })
+        playlists.append(playlist_info)
+    return playlists
 
 @app.route('/get_library_data', methods=['POST'])
 def get_library_data():
@@ -32,11 +78,24 @@ def get_library_data():
                 tree = ET.parse(xml_file)
                 root = tree.getroot()
                 
-                # Convert the entire XML structure to a dictionary
-                nml_dict = xml_to_dict(root)
+                # Extracting tracks with metadata and location
+                tracks = []
+                track_collection = root.findall(".//COLLECTION/ENTRY")
+                for entry in track_collection:
+                    tracks.append(extract_track_info(entry))
                 
-                # Return the dictionary as a JSON response
-                return jsonify(nml_dict), 200
+                # Extracting playlist names and their tracks, including locations
+                playlists = extract_playlists(root, track_collection)
+                
+                # Construct the final output
+                library_data = {
+                    'tracks': tracks,
+                    'playlists': playlists
+                }
+                
+                # Return the data as a JSON response
+                return jsonify(library_data), 200
+            
             except ET.ParseError as parse_error:
                 return jsonify({'error': f"XML Parse Error: {str(parse_error)}"}), 500
             except Exception as e:
@@ -48,3 +107,4 @@ def get_library_data():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
