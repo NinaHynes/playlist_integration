@@ -29,23 +29,49 @@ def parse_rekordbox_xml(file):
         # Step 2: Extract playlists and match them with tracks
         playlists = []
 
-        # Start by finding the top-level NODE elements
-        for node in root.findall(".//NODE"):
-            playlist_name = node.get('Name')
-            playlist_tracks = []
+        # If the XML contains a PLAYLISTS section
+        playlists_section = root.find(".//PLAYLISTS")
+        if playlists_section is not None:
+            for node in playlists_section.findall(".//NODE"):
+                playlist_name = node.get('Name')
 
-            # Find all TRACK elements under this NODE
-            for track_node in node.findall(".//TRACK"):
-                track_id = track_node.get('Key')
-                if track_id and track_id in track_dict:
-                    playlist_tracks.append(track_dict[track_id])
+                # Skip the "ROOT" node
+                if playlist_name == "ROOT":
+                    continue
 
-            # Add playlist only if it has tracks
-            if playlist_tracks:
-                playlists.append({
-                    'playlist_name': playlist_name,
-                    'tracks': playlist_tracks
-                })
+                playlist_tracks = []
+
+                for track_node in node.findall(".//TRACK"):
+                    track_id = track_node.get('Key')
+                    if track_id and track_id in track_dict:
+                        playlist_tracks.append(track_dict[track_id])
+
+                if playlist_tracks:
+                    playlists.append({
+                        'playlist_name': playlist_name,
+                        'tracks': playlist_tracks
+                    })
+        else:
+            # Handle the case for NODE elements elsewhere in the XML
+            for node in root.findall(".//NODE"):
+                playlist_name = node.get('Name')
+
+                # Skip the "ROOT" node
+                if playlist_name == "ROOT":
+                    continue
+
+                playlist_tracks = []
+
+                for track_node in node.findall(".//TRACK"):
+                    track_id = track_node.get('Key')
+                    if track_id and track_id in track_dict:
+                        playlist_tracks.append(track_dict[track_id])
+
+                if playlist_tracks:
+                    playlists.append({
+                        'playlist_name': playlist_name,
+                        'tracks': playlist_tracks
+                    })
 
         return playlists if playlists else "No playlists found."
 

@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<DJ_PLAYLISTS Version="1.0.0"><COLLECTION Entries="3"><TRACK TrackID="9379193" Name="01 Right There" Artist="Floorplan" Composer="" Album="Right There / Holy Ghost" Grouping="" Genre="" Kind="MP3 File" Size="7148309" TotalTime="177" DiscNumber="0" TrackNumber="1" Year="0" AverageBpm="124.00" DateAdded="2024-08-27" BitRate="320" SampleRate="44100" Comments="" PlayCount="0" Rating="0" Location="file://localhost/Users/ale/Projects/AIDJ/NewAll/01%20Right%20There.mp3" Remixer="" Tonality="Gm" Label="" Mix="">
+      <TEMPO Inizio="0.077" Bpm="124.00" Metro="4/4" Battito="1" />
+    </TRACK>
+    <TRACK TrackID="68121666" Name="Back 2 Back" Artist="6th Borough Project" Composer="" Album="Borough 2 Borough" Grouping="" Genre="" Kind="AIFF File" Size="67390332" TotalTime="380" DiscNumber="0" TrackNumber="8" Year="0" AverageBpm="114.00" DateAdded="2024-08-27" BitRate="1411" SampleRate="44100" Comments="Visit https://6thboroughproject.bandcamp.com" PlayCount="0" Rating="0" Location="file://localhost/Users/ale/Projects/AIDJ/NewAll/AIFF/6th%20Borough%20Project%20-%20Borough%202%20Borough%20-11.aiff" Remixer="" Tonality="Dbm" Label="" Mix="">
+      <TEMPO Inizio="0.008" Bpm="114.00" Metro="4/4" Battito="4" />
+      <TEMPO Inizio="5.798" Bpm="114.00" Metro="4/4" Battito="3" />
+      <TEMPO Inizio="44.218" Bpm="114.00" Metro="4/4" Battito="4" />
+      <TEMPO Inizio="109.480" Bpm="114.00" Metro="4/4" Battito="4" />
+      <TEMPO Inizio="167.900" Bpm="114.00" Metro="4/4" Battito="3" />
+      <TEMPO Inizio="224.741" Bpm="114.00" Metro="4/4" Battito="3" />
+      <TEMPO Inizio="283.161" Bpm="114.00" Metro="4/4" Battito="2" />
+      <TEMPO Inizio="341.581" Bpm="114.00" Metro="4/4" Battito="1" />
+    </TRACK>
+    <TRACK TrackID="183488245" Name="Fachwerk 25" Artist="Mike Dehnert" Composer="" Album="Fachwerk 25" Grouping="" Genre="" Kind="MP3 File" Size="12160534" TotalTime="301" DiscNumber="0" TrackNumber="5" Year="0" AverageBpm="125.00" DateAdded="2024-08-27" BitRate="320" SampleRate="44100" Comments="" PlayCount="0" Rating="0" Location="file://localhost/Users/ale/Projects/AIDJ/NewAll/Fachwerk%2025.mp3" Remixer="" Tonality="Abm" Label="" Mix="">
+      <TEMPO Inizio="0.284" Bpm="125.00" Metro="4/4" Battito="1" />
+      <TEMPO Inizio="15.643" Bpm="125.00" Metro="4/4" Battito="1" />
+    </TRACK>
+    </COLLECTION><PLAYLISTS><NODE Name="ROOT"><TRACK Key="9379193" /></NODE><NODE Name="Three"><TRACK Key="9379193" /></NODE><NODE Name="Twoo"><TRACK Key="68121666" /></NODE><NODE Name="One"><TRACK Key="183488245" /></NODE></PLAYLISTS></DJ_PLAYLISTS>
